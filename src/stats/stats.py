@@ -12,7 +12,9 @@ class Stats:
         Ejemplo:
             promedio([1, 2, 3, 4, 5]) -> 3.0
         """
-        pass
+        if not numeros:
+            return 0
+        return sum(numeros) / len(numeros)
     
     def mediana(self, numeros):
         """
@@ -29,7 +31,15 @@ class Stats:
             mediana([1, 2, 3, 4, 5]) -> 3.0
             mediana([1, 2, 3, 4]) -> 2.5
         """
-        pass
+        if not numeros:
+            return 0
+        numeros_ordenados = sorted(numeros)
+        n = len(numeros_ordenados)
+        mitad = n // 2
+        if n % 2 == 0:
+            return (numeros_ordenados[mitad - 1] + numeros_ordenados[mitad]) / 2
+        else:
+            return float(numeros_ordenados[mitad])
     
     def moda(self, numeros):
         """
@@ -45,7 +55,15 @@ class Stats:
         Ejemplo:
             moda([1, 2, 2, 3, 3, 3]) -> 3
         """
-        pass
+        if not numeros:
+            return None
+        frecuencia = {}
+        for num in numeros:
+            frecuencia[num] = frecuencia.get(num, 0) + 1
+        max_frec = max(frecuencia.values())
+        for num in numeros:  
+            if frecuencia[num] == max_frec:
+                return num
     
     def desviacion_estandar(self, numeros):
         """
@@ -61,7 +79,11 @@ class Stats:
         Ejemplo:
             desviacion_estandar([1, 2, 3, 4, 5]) -> 1.41...
         """
-        pass
+        if not numeros:
+            return 0
+        media = self.promedio(numeros)
+        var = sum((x - media) ** 2 for x in numeros) / len(numeros)
+        return var ** 0.5
     
     def varianza(self, numeros):
         """
@@ -77,7 +99,10 @@ class Stats:
         Ejemplo:
             varianza([1, 2, 3, 4, 5]) -> 2.0
         """
-        pass
+        if not numeros:
+            return 0
+        media = self.promedio(numeros)
+        return sum((x - media) ** 2 for x in numeros) / len(numeros)
     
     def rango(self, numeros):
         """
@@ -92,4 +117,6 @@ class Stats:
         Ejemplo:
             rango([1, 5, 3, 9, 2]) -> 8
         """
-        pass
+        if not numeros:
+            return 0
+        return max(numeros) - min(numeros)
